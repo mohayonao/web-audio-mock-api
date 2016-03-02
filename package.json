@@ -6,6 +6,20 @@
   "bugs": {
     "url": "https://github.com/mohayonao/web-audio-mock-api/issues"
   },
+  "devDependencies": {
+    "istanbul": "^0.4.2",
+    "mocha": "^2.4.5",
+    "sinon": "^1.17.3"
+  },
+  "engines": {
+    "node": ">= 4.0"
+  },
+  "files": [
+    "src",
+    "index.js",
+    "package.json",
+    "README.md"
+  ],
   "homepage": "https://github.com/mohayonao/web-audio-mock-api/",
   "keywords": [
     "WebAUdioAPI",
@@ -17,5 +31,10 @@
   "repository": {
     "type": "git",
     "url": "http://github.com/mohayonao/web-audio-mock-api.git"
+  },
+  "scripts": {
+    "cover": "istanbul cover --report text --report html _mocha",
+    "test": "mocha",
+    "travis": "npm run test"
   }
 }
