@@ -17,6 +17,39 @@ _The API is based on the latest specification of Web Audio API._
 
 - [Web Audio API - W3C Working Draft 08 December 2015](http://www.w3.org/TR/2015/WD-webaudio-20151208/)
 
+## Example
+
+```js
+const assert = require("assert");
+const wamock = require("web-audio-mock-api");
+
+function beep(audioContext) {
+  const oscillator = audioContext.createOscillator();
+  const gain = audioContext.createGain();
+  const t0 = audioContext.currentTime;
+  const t1 = t0 + 0.25;
+
+  oscillator.type = "sine";
+  oscillator.frequency.value = 880;
+  oscillator.start(t0);
+  oscillator.stop(t1);
+  oscillator.onended = () => {
+    oscillator.disconnect();
+    gain.disconnect();
+  };
+
+  gain
+    .setValueAtTime(1, t0)
+    .linearRampToValueAtTime(0, t1);
+
+  oscillator.connect(gain).connect(audioContext.destination);
+}
+
+const audioContext = new wamock.AudioContext();
+
+assert.doesNotThrow(() => beep(audioContext));
+```
+
 ## Licsense
 
 MIT
